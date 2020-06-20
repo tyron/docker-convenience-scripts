@@ -21,7 +21,7 @@ fi
 
 
 #Check if the source volume name does exist
-docker volume inspect $1 > /dev/null 2>&1
+docker --tls volume inspect $1 > /dev/null 2>&1
 if [ "$?" != "0" ]
 then
         echo "The source volume \"$1\" does not exist"
@@ -29,7 +29,7 @@ then
 fi
 
 #Now check if the destinatin volume name does not yet exist
-docker volume inspect $2 > /dev/null 2>&1
+docker --tls volume inspect $2 > /dev/null 2>&1
 
 if [ "$?" = "0" ]
 then
@@ -40,9 +40,9 @@ fi
 
 
 echo "Creating destination volume \"$2\"..."
-docker volume create --name $2  
+docker --tls volume create --name $2  
 echo "Copying data from source volume \"$1\" to destination volume \"$2\"..."
-docker run --rm \
+docker --tls run --rm \
            -i \
            -t \
            -v $1:/from \
